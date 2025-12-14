@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Cart | Ajmal Perfumes</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        table { width:100%; border-collapse:collapse; }
+        th, td { padding:15px 0; border-bottom:1px solid #ddd; }
+        .cart-product { display:flex; gap:20px; align-items:center; }
+        .cart-product img { width:80px; height:80px; object-fit:cover; border-radius:6px; }
+        .qty-btn { padding:5px 12px; margin:0 5px; }
+        .total-box { text-align:right; margin-top:30px; font-size:18px; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Collections</a>
+</nav>
+
+<section class="container">
+    <h2>Your Shopping Cart</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Subtotal</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="cartBody"></tbody>
+    </table>
+
+    <div class="total-box" id="totalBox"></div>
+</section>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let body = document.getElementById("cartBody");
+let total = 0;
+
+if (cart.length === 0) {
+    body.innerHTML = "<tr><td colspan='5'>Your cart is empty.</td></tr>";
+}
+
+cart.forEach(item => {
+    let sub = item.price * item.qty;
+    total += sub;
+
+    body.innerHTML += `
+        <tr>
+            <td>
+                <div class="cart-product">
+                    <img src="${item.image}">
+                    <strong>${item.name}</strong>
+                </div>
+            </td>
+            <td>₹${item.price}</td>
+            <td>
+                <button class="qty-btn" onclick="changeQty(${item.id},-1)">−</button>
+                ${item.qty}
+                <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
+            </td>
+            <td>₹${sub}</td>
+            <td><button onclick="removeItem(${item.id})">Remove</button></td>
+        </tr>
+    `;
+});
+
+let tax = total * 0.18;
+let grand = total + tax;
+
+document.getElementById("totalBox").innerHTML = `
+Subtotal: ₹${total}<br>
+Tax (18%): ₹${tax.toFixed(2)}<br>
+<strong>Grand Total: ₹${grand.toFixed(2)}</strong><br><br>
+<a href="checkout.html">
+    <button onclick="goToCheckout()">Proceed to Checkout</button>
+</a>
+
+`;
+
+function changeQty(id, delta) {
+    let item = cart.find(p => p.id === id);
+    item.qty += delta;
+    if (item.qty <= 0) cart = cart.filter(p => p.id !== id);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    location.reload();
+}
+
+function removeItem(id) {
+    cart = cart.filter(p => p.id !== id);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    location.reload();
+}
+
+function checkout() {
+    alert("Order placed successfully!");
+    localStorage.clear();
+    location.reload();
+}
+</script>
+
+<script>
+function goToCheckout() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    if (cart.length === 0) {
+        alert("Your cart is empty. Please add products before checkout.");
+        return;
+    }
+
+    window.location.href = "checkout.html";
+}
+</script>
+<script>
+if (!localStorage.getItem("loggedIn")) {
+    alert("Please login to access your cart");
+    window.location.href = "login.html";
+}
+</script>
+
+
+
+</body>
+
+</html>

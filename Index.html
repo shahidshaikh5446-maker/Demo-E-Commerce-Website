@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajmal Perfumes — Luxury Fragrance House</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* HOME PAGE ONLY (PROFESSIONAL) */
+        .hero {
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(180deg, #1c1c1c, #111);
+            color: #fff;
+        }
+
+        .hero-content {
+            width: 85%;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #cfcfcf;
+            max-width: 650px;
+            line-height: 1.7;
+        }
+
+        .section {
+            padding: 90px 0;
+        }
+
+        .section.light {
+            background: #f6f6f6;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 50px;
+        }
+
+        .values {
+            width: 85%;
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+        }
+
+        .value h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .value p {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .featured {
+            width: 85%;
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .featured .product {
+            border: none;
+            background: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .featured img {
+            height: 260px;
+            border-radius: 6px;
+        }
+
+        .featured h3 {
+            margin-top: 15px;
+            font-size: 17px;
+        }
+
+        .featured p {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .story {
+            width: 70%;
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+            font-size: 16px;
+            color: #444;
+            line-height: 1.8;
+        }
+
+        @media(max-width: 900px) {
+            .values, .featured {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <h1>Ajmal Perfumes</h1>
+    <p>Luxury Fragrance House Since 1951</p>
+</header>
+
+<!-- NAVIGATION -->
+<nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Collections</a>
+    <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Timeless Fragrances, Crafted with Purpose</h1>
+        <p>
+            A legacy of fine perfumery blending heritage,
+            craftsmanship, and modern refinement —
+            designed to endure.
+        </p>
+        <br>
+        <a href="products.html">
+            <button>EXPLORE COLLECTION</button>
+        </a>
+    </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="section">
+    <h2>Our Philosophy</h2>
+
+    <div class="values">
+        <div class="value">
+            <h3>Heritage</h3>
+            <p>
+                Rooted in decades of perfumery expertise,
+                every creation reflects tradition refined
+                through generations.
+            </p>
+        </div>
+
+        <div class="value">
+            <h3>Craftsmanship</h3>
+            <p>
+                Meticulous formulation, precision blending,
+                and uncompromising quality define our process.
+            </p>
+        </div>
+
+        <div class="value">
+            <h3>Authenticity</h3>
+            <p>
+                Designed with integrity to feel personal,
+                distinctive, and enduring.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="section light">
+    <h2>Selected Fragrances</h2>
+
+    <div class="featured">
+
+        <div class="product">
+            <img src="images/OIP (1).jpg" alt="Ajmal Wisal">
+            <h3>Ajmal Wisal</h3>
+            <p>₹1,499</p>
+            <button onclick="addToCart(1,'Ajmal Wisal',1499,'images/OIP (1).jpg')">
+                Add to Cart
+            </button>
+        </div>
+
+        <div class="product">
+            <img src="images/OIP.jpg" alt="Ajmal Aristocrat">
+            <h3>Ajmal Aristocrat</h3>
+            <p>₹1,999</p>
+            <button onclick="addToCart(2,'Ajmal Aristocrat',1999,'images/OIP.jpg')">
+                Add to Cart
+            </button>
+        </div>
+
+        <div class="product">
+            <img src="images/OIP (2).jpg" alt="Ajmal Amber Wood">
+            <h3>Ajmal Amber Wood</h3>
+            <p>₹2,499</p>
+            <button onclick="addToCart(3,'Ajmal Amber Wood',2499,'images/OIP (2).jpg')">
+                Add to Cart
+            </button>
+        </div>
+
+    </div>
+</section>
+
+<!-- STORY -->
+<section class="section">
+    <h2>About the House</h2>
+    <div class="story">
+        Established in 1951, Ajmal Perfumes began as a specialist
+        in rare fragrance ingredients. Today, it stands as a
+        global fragrance house known for refinement, quality,
+        and understated luxury.
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#111;color:#aaa;text-align:center;padding:35px;">
+    <p>© 2025 Ajmal Perfumes</p>
+    <p style="font-size:13px;">Professional E-Commerce Portfolio Project</p>
+</footer>
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
+
+<script src="js/cart.js"></script>
+</body>
+</html>

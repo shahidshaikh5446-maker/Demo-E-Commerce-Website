@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout | Ajmal Perfumes</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .checkout-box {
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            padding: 25px;
+            background: #fff;
+        }
+
+        .checkout-box h3 {
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .checkout-box input,
+        .checkout-box select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .order-item img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .order-total {
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+
+        .place-order-btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 15px;
+            margin-top: 15px;
+        }
+
+        @media(max-width: 900px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Collections</a>
+    <a href="cart.html">Cart</a>
+</nav>
+
+<section class="container">
+    <h2>Checkout</h2>
+
+    <div class="checkout-container">
+
+        <!-- LEFT : SHIPPING + PAYMENT -->
+        <div class="checkout-box">
+            <h3>Shipping Details</h3>
+
+            <input id="name" placeholder="Full Name">
+            <input id="email" placeholder="Email">
+            <input id="address" placeholder="Address">
+            <input id="city" placeholder="City">
+            <input id="pincode" placeholder="Pincode">
+
+            <h3 style="margin-top:30px;">Payment Method</h3>
+
+            <select id="payment">
+                <option value="">Select Payment Method</option>
+                <option>Credit / Debit Card</option>
+                <option>UPI</option>
+                <option>Cash on Delivery</option>
+            </select>
+        </div>
+
+        <!-- RIGHT : ORDER SUMMARY -->
+        <div class="checkout-box">
+            <h3>Order Summary</h3>
+            <div id="orderItems"></div>
+
+            <div class="order-total" id="orderTotal"></div>
+
+            <button class="place-order-btn" onclick="placeOrder()">
+                Place Order
+            </button>
+        </div>
+
+    </div>
+</section>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let orderItems = document.getElementById("orderItems");
+let total = 0;
+
+if (cart.length === 0) {
+    orderItems.innerHTML = "<p>Your cart is empty.</p>";
+}
+
+cart.forEach(item => {
+    let subtotal = item.price * item.qty;
+    total += subtotal;
+
+    orderItems.innerHTML += `
+        <div class="order-item">
+            <img src="${item.image}">
+            <div>
+                <strong>${item.name}</strong><br>
+                Qty: ${item.qty}<br>
+                ₹${subtotal}
+            </div>
+        </div>
+    `;
+});
+
+let tax = total * 0.18;
+let grandTotal = total + tax;
+
+document.getElementById("orderTotal").innerHTML = `
+Subtotal: ₹${total}<br>
+Tax (18%): ₹${tax.toFixed(2)}<br>
+<strong>Grand Total: ₹${grandTotal.toFixed(2)}</strong>
+`;
+
+function placeOrder() {
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let address = document.getElementById("address").value;
+    let payment = document.getElementById("payment").value;
+
+    if (!name || !email || !address || !payment) {
+        alert("Please fill all required details");
+        return;
+    }
+
+    alert("Order placed successfully! Thank you for shopping with Ajmal.");
+
+    localStorage.removeItem("cart");
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+<script>
+let cart1 = JSON.parse(localStorage.getItem("cart")) || [];
+
+if (cart1.length === 0) {
+    alert("Your cart is empty. Redirecting to products page.");
+    window.location.href = "cart.html";
+}
+</script>
+</html>
